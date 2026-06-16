@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
@@ -18,7 +19,94 @@ app.use(cors({
 }));
 
 app.use(express.json());
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => {
+    console.log('✅ MongoDB Connected');
+  })
+  .catch((err) => {
+    console.error('❌ MongoDB Error:', err);
+  });
+  const userSchema = new mongoose.Schema({
+  name: String,
+  email: {
+    type: String,
+    unique: true
+  },
+  password: String
+});
 
+const User = mongoose.model('User', userSchema);
+
+app.post('/api/signup', async (req, res) => {
+  try {
+    const { name, email, password } = req.body;
+
+    const existing = await User.findOne({ email });
+
+    if (existing) {
+      return res.status(400).json({
+        error: 'User already exists'
+      });
+    }
+
+    const user = await User.create({
+      name,
+      email,
+      password
+    });
+
+    res.json({
+      success: true,
+      user
+    });
+
+  } catch (err) {
+    console.error(err);
+
+    res.status(500).json({
+      error: err.message
+    });
+  }
+});
+
+app.post('/api/login', async (req, res) => {
+  try {
+
+    const { emailOrName, password } = req.body;
+
+    const user = await User.findOne({
+      $or: [
+        { email: emailOrName },
+        { name: emailOrName }
+      ]
+    });
+
+    if (!user) {
+      return res.status(401).json({
+        error: 'User not found'
+      });
+    }
+
+    if (user.password !== password) {
+      return res.status(401).json({
+        error: 'Wrong password'
+      });
+    }
+
+    res.json({
+      success: true,
+      user
+    });
+
+  } catch (err) {
+
+    console.error(err);
+
+    res.status(500).json({
+      error: err.message
+    });
+  }
+});
 // ============================================
 // TEST API - Check if backend is working
 // ============================================

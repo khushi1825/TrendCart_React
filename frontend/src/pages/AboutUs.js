@@ -1,6 +1,18 @@
 import React from "react";
 
+// Colors completely matched to the premium navy-to-raspberry gradient
+const COLORS = {
+  backgroundWhite: "#FFFFFF",
+  gradientStart: "#2c3e50", // Deep Navy Blue
+  gradientEnd: "#802060",   // Rich Deep Raspberry
+  deepNavy: "#2c3e50",
+  lightText: "#f1f1f1",
+  polishedGold: "#FFD700",
+  goldFrameBorder: "#D4AF37",
+};
+
 const AboutUs = () => {
+  // Functionality explicitly preserved
   const principles = [
     {
       icon: "🌿",
@@ -27,9 +39,10 @@ const AboutUs = () => {
   return (
     <div
       style={{
-        background: "#faf9f4",
+        background: COLORS.backgroundWhite,
         minHeight: "100vh",
         padding: "40px 0",
+        fontFamily: "'Playfair Display', serif, system-ui, sans-serif",
       }}
     >
       <div
@@ -39,22 +52,22 @@ const AboutUs = () => {
           margin: "0 auto",
         }}
       >
-        {/* HERO */}
-
+        {/* HERO SECTION - Exact same gradient as Quote Box */}
         <div
           style={{
-            background: "FFF1D3",
+            background: `linear-gradient(to right, ${COLORS.gradientStart}, ${COLORS.gradientEnd})`,
             borderRadius: "35px",
             padding: "80px 40px",
             textAlign: "center",
             marginBottom: "70px",
+            boxShadow: "0 12px 25px rgba(0,0,0,0.15)",
           }}
         >
           <h1
             style={{
               fontSize: "4rem",
               fontWeight: "700",
-              color: "#e91e63",
+              color: COLORS.backgroundWhite,
               marginBottom: "25px",
               lineHeight: "1.2",
             }}
@@ -69,7 +82,7 @@ const AboutUs = () => {
               fontSize: "1.4rem",
               maxWidth: "900px",
               margin: "0 auto",
-              color: "#2c4d2c",
+              color: COLORS.lightText,
             }}
           >
             TrendCart was born from a love for slow fashion — timeless pieces
@@ -77,22 +90,21 @@ const AboutUs = () => {
           </p>
         </div>
 
-        {/* STORY */}
-
+        {/* STORY SECTION - With 2 Overlapping/Collage Images */}
         <div
           style={{
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
             gap: "60px",
             alignItems: "center",
-            marginBottom: "80px",
+            marginBottom: "100px",
           }}
         >
           <div>
             <h2
               style={{
                 fontSize: "3rem",
-                color: "#e91e63",
+                color: COLORS.deepNavy,
                 marginBottom: "30px",
               }}
             >
@@ -139,28 +151,79 @@ const AboutUs = () => {
             </p>
           </div>
 
-          <div>
-            <img
-              src="https://images.unsplash.com/photo-1483985988355-763728e1935b"
-              alt="about"
+          {/* TWO IMAGES DISPLAY (Asymmetric Editorial Style Layout) */}
+          <div 
+            style={{ 
+              position: "relative", 
+              height: "650px",
+              width: "100%"
+            }}
+          >
+            {/* First Image (Top-Left Background Layer) */}
+            <div
               style={{
-                width: "100%",
-                height: "650px",
-                objectFit: "cover",
-                borderRadius: "35px",
+                position: "absolute",
+                top: "0",
+                left: "0",
+                width: "65%",
+                height: "450px",
+                border: `4px solid ${COLORS.goldFrameBorder}`,
+                borderRadius: "25px",
+                padding: "8px",
+                boxShadow: "0 10px 20px rgba(0,0,0,0.1)",
+                background: "#fff",
+                zIndex: 1,
               }}
-            />
+            >
+              <img
+                src="https://images.unsplash.com/photo-1483985988355-763728e1935b"
+                alt="about main"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  borderRadius: "18px",
+                }}
+              />
+            </div>
+
+            {/* Second Image (Bottom-Right Foreground Layer) */}
+            <div
+              style={{
+                position: "absolute",
+                bottom: "0",
+                right: "0",
+                width: "60%",
+                height: "400px",
+                border: `4px solid ${COLORS.goldFrameBorder}`,
+                borderRadius: "25px",
+                padding: "8px",
+                boxShadow: "0 15px 30px rgba(0,0,0,0.15)",
+                background: "#fff",
+                zIndex: 2,
+              }}
+            >
+              <img
+                src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d" // Dynamic Second fashion image
+                alt="about detail"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  borderRadius: "18px",
+                }}
+              />
+            </div>
           </div>
         </div>
 
-        {/* PRINCIPLES */}
-
+        {/* PRINCIPLES SECTION */}
         <div style={{ marginBottom: "80px" }}>
           <h2
             style={{
               fontSize: "3rem",
               marginBottom: "40px",
-              color: "#e91e63",
+              color: COLORS.deepNavy,
             }}
           >
             Our guiding principles
@@ -177,17 +240,19 @@ const AboutUs = () => {
               <div
                 key={index}
                 style={{
-                  background: "#fff",
+                  background: COLORS.backgroundWhite,
                   borderRadius: "25px",
+                  border: `2px solid ${COLORS.goldFrameBorder}`,
                   padding: "40px 25px",
                   textAlign: "center",
-                  boxShadow: "0 2px 10px rgba(0,0,0,0.04)",
+                  boxShadow: "0 5px 15px rgba(0,0,0,0.08)",
                 }}
               >
                 <div
                   style={{
-                    fontSize: "3rem",
+                    fontSize: "3.5rem",
                     marginBottom: "20px",
+                    color: COLORS.polishedGold,
                   }}
                 >
                   {item.icon}
@@ -197,6 +262,7 @@ const AboutUs = () => {
                   style={{
                     marginBottom: "15px",
                     fontSize: "1.7rem",
+                    color: COLORS.deepNavy,
                   }}
                 >
                   {item.title}
@@ -215,22 +281,21 @@ const AboutUs = () => {
           </div>
         </div>
 
-        {/* QUOTE */}
-
+        {/* QUOTE SECTION */}
         <div
           style={{
-            background: "#EFE3CA",
+            background: `linear-gradient(to right, ${COLORS.gradientStart}, ${COLORS.gradientEnd})`,
             borderRadius: "35px",
-            padding: "40px 30px",
-maxHeighht: "10px",
+            padding: "60px 40px",
             textAlign: "center",
+            boxShadow: "0 12px 25px rgba(0,0,0,0.15)",
           }}
         >
           <div
             style={{
-              fontSize: "2rem",
-              color: "#6b6b45",
-              marginBottom: "10px",
+              fontSize: "2.5rem",
+              color: COLORS.polishedGold,
+              marginBottom: "20px",
             }}
           >
             ❝
@@ -243,7 +308,7 @@ maxHeighht: "10px",
               maxWidth: "900px",
               margin: "0 auto 25px",
               lineHeight: "1.6",
-              color: "#1f1f1f",
+              color: COLORS.backgroundWhite,
             }}
           >
             Fashion should never feel like a compromise — between style and
@@ -254,7 +319,8 @@ maxHeighht: "10px",
           <p
             style={{
               fontSize: "1.2rem",
-              color: "#333",
+              color: COLORS.polishedGold,
+              fontWeight: "bold",
             }}
           >
             — Elena V., founder & creative director

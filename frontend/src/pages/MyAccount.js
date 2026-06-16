@@ -52,7 +52,7 @@ const MyAccount = () => {
         <div style={{
           width: '80px',
           height: '80px',
-          backgroundColor: '#e91e63',
+          backgroundColor: '#FFFAF3',
           borderRadius: '50%',
           display: 'flex',
           alignItems: 'center',
