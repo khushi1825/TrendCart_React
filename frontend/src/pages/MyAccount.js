@@ -24,7 +24,7 @@ const MyAccount = () => {
     { icon: '❤️', label: 'Wishlist', value: wishlist.length, link: '/wishlist', color: '#f44336' },
   ];
 
-  // Button hover style - sab buttons ke liye same
+  // Button style - no unused variables
   const buttonStyle = {
     padding: '0.6rem 1.2rem',
     backgroundColor: '#f5f5f5',
@@ -34,12 +34,6 @@ const MyAccount = () => {
     fontSize: '0.9rem',
     transition: 'all 0.2s',
     display: 'inline-block'
-  };
-
-  const buttonHoverStyle = {
-    backgroundColor: '#e91e63',
-    color: '#fff',
-    transform: 'translateY(-2px)'
   };
 
   return (
@@ -58,13 +52,14 @@ const MyAccount = () => {
         <div style={{
           width: '80px',
           height: '80px',
-          backgroundColor: '#FFFEFD',
+          backgroundColor: '#e91e63',
           borderRadius: '50%',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           margin: '0 auto 1rem auto',
-          fontSize: '2.5rem'
+          fontSize: '2.5rem',
+          color: '#fff'
         }}>
           👤
         </div>
@@ -124,7 +119,6 @@ const MyAccount = () => {
           flexWrap: 'wrap',
           gap: '1rem'
         }}>
-          {/* Continue Shopping - Grey normally, Pink on hover */}
           <Link 
             to="/shop" 
             style={buttonStyle}
@@ -141,7 +135,6 @@ const MyAccount = () => {
             🛍️ Continue Shopping
           </Link>
 
-          {/* Manage Friends - Grey normally, Pink on hover */}
           <Link 
             to="/friends" 
             style={buttonStyle}
@@ -158,7 +151,6 @@ const MyAccount = () => {
             👥 Manage Friends
           </Link>
 
-          {/* View Votes - Grey normally, Pink on hover */}
           <Link 
             to="/vote" 
             style={buttonStyle}
