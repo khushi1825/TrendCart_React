@@ -1,61 +1,90 @@
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
+require('dotenv').config();
 
 const app = express();
-app.use(cors());
+
+// CORS - Allow frontend URLs
+app.use(cors({
+  origin: [
+    'http://localhost:3000',
+    'http://localhost:3001',
+    'https://trendcart.vercel.app',
+    'https://trendcart-*.vercel.app',
+    'https://trendcart-react.onrender.com'
+  ],
+  credentials: true
+}));
+
 app.use(express.json());
 
-// 🔁 YAHAN APNA FAST2SMS API KEY LAGAYEIN
-const FAST2SMS_API_KEY = 'iFBXCpIozZ7y4RVKe0n6QsrPtcYwTq9xW1D8HMLmgvAf2lUbkun2x0k3B8pRGvqcTaDZgKtCdXbAPmhf';   // <-- yahan paste karein
-
-//backend krne ke liye daal rhi hu 
+// ============================================
+// TEST API - Check if backend is working
+// ============================================
 app.get('/api/test', (req, res) => {
-  res.json({ message: 'Backend is working!' });
+  res.json({ 
+    message: 'Backend is working!',
+    timestamp: new Date().toISOString(),
+    status: 'online'
+  });
 });
 
-app.post('/api/send-vote-sms', async (req, res) => {
-  const { friendName, friendNumber, dressName } = req.body;
+// ============================================
+// ✅ ONLY WHATSAPP SHARE LINK API
+// ============================================
+app.post('/api/send-whatsapp-link', async (req, res) => {
+  const { friendName, friendNumber, dressName, dressLink } = req.body;
+  
+  const whatsappLink = `https://wa.me/${friendNumber}?text=${encodeURIComponent(
+    `👗 ${dressName} has been added for voting!\nVote here: ${dressLink}`
+  )}`;
+  
+  res.json({ 
+    success: true, 
+    whatsappLink 
+  });
+});
 
-  if (!friendNumber) {
-    return res.status(400).json({ error: 'Friend number missing' });
-  }
+// ============================================
+// 📧 EMAILJS CONTACT FORM API
+// ============================================
+const EMAILJS_SERVICE_ID = process.env.EMAILJS_SERVICE_ID;
+const EMAILJS_TEMPLATE_ID = process.env.EMAILJS_TEMPLATE_ID;
+const EMAILJS_PUBLIC_KEY = process.env.EMAILJS_PUBLIC_KEY;
 
-  // Indian numbers ke liye +91 nahi lagana, bas 10 digit number chahiye
-  let toNumber = friendNumber.replace(/\D/g, ''); // sirf digits
-  if (toNumber.length === 10) {
-    // Fast2SMS 10-digit number leta hai
-    toNumber = toNumber;
-  } else if (toNumber.startsWith('91') && toNumber.length === 12) {
-    toNumber = toNumber.slice(2);
-  }
-
-  const message = `Hey ${friendName}, ${dressName} has been added for voting on TrendCart. Please vote! - TrendCart`;
-
+app.post('/api/send-contact-email', async (req, res) => {
+  const { name, email, subject, message } = req.body;
+  
   try {
-    const response = await axios.post('https://www.fast2sms.com/dev/bulkV2', {
-      route: 'v3',
-      sender_id: 'TXTIND',
-      message: message,
-      language: 'english',
-      numbers: toNumber
-    }, {
-      headers: {
-        'authorization': FAST2SMS_API_KEY,
-        'Content-Type': 'application/json'
+    const response = await axios.post(
+      'https://api.emailjs.com/api/v1.0/email/send',
+      {
+        service_id: EMAILJS_SERVICE_ID,
+        template_id: EMAILJS_TEMPLATE_ID,
+        user_id: EMAILJS_PUBLIC_KEY,
+        template_params: {
+          name: name,
+          email: email,
+          subject: subject || 'No subject',
+          message: message
+        }
       }
-    });
-
-    console.log(`SMS sent to ${friendName} (${toNumber})`, response.data);
+    );
+    
     res.json({ success: true, data: response.data });
   } catch (error) {
-    console.error('Fast2SMS error:', error.response?.data || error.message);
-    res.status(500).json({ error: 'Failed to send SMS', details: error.message });
+    console.error('EmailJS error:', error.response?.data || error.message);
+    res.status(500).json({ error: 'Failed to send email' });
   }
 });
 
+// ============================================
+// Start Server
+// ============================================
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(`Backend running on port ${PORT}`);
+  console.log(`🚀 Backend running on port ${PORT}`);
+  console.log(`✅ Test API: http://localhost:${PORT}/api/test`);
 });
