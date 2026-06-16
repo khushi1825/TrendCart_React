@@ -8,15 +8,19 @@ const AddFriends = () => {
   const [mobile, setMobile] = useState('');
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    if (name.trim() && mobile.trim()) {
-      addFriend(name, mobile);
-      setName('');
-      setMobile('');
-    } else {
-      alert('Please enter both name and mobile number');
-    }
-  };
+  e.preventDefault();
+  if (name.trim() && mobile.trim()) {
+    addFriend(name, mobile);
+    setName('');
+    setMobile('');
+    
+    // DEBUG: Check if saved
+    const friends = JSON.parse(localStorage.getItem('trendcart_friends') || '[]');
+    console.log('Friends after add:', friends);
+  } else {
+    alert('Please enter both name and mobile number');
+  }
+};
 
   return (
     <div className="container">
