@@ -1,6 +1,5 @@
 // src/components/ProductCard.js
 import { formatINR } from '../utils/currency';
-import axios from 'axios';
 import React from 'react';
 import { useAppContext } from '../context/AppContext';
 
