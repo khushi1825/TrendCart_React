@@ -1,3 +1,4 @@
+import { formatINR } from '../utils/currency';
 import React from 'react';
 import { useAppContext } from '../context/AppContext';
 
@@ -11,36 +12,38 @@ const ProductCard = ({ product }) => {
     return `₹${inr.toLocaleString('en-IN')}`;
   };
 
-  const handleAddForVote = () => {
-    addVotingPost(product);
-    const friendsList = JSON.parse(localStorage.getItem('trendcart_friends') || '[]');
-    
-    if (friendsList.length === 0) {
-      alert('❌ No friends added. Go to Friends page first!');
-      return;
-    }
-    
-    const votingLink = `${window.location.origin}/vote`;
-    
-    const messageTemplate = (friendName) => {
-      return `👗 Hi ${friendName}!\n\n${product.name} has been added for voting on TrendCart!\n\n💰 Price: ${formatPrice(product.price)}\n\n🔗 Vote here: ${votingLink}\n\nVote options: 👍 Like | 👎 Dislike | 🌟 Excellent\n\n- TrendCart 🌸`;
-    };
-    
-    let openedCount = 0;
-    
-    friendsList.forEach(friend => {
-      let number = friend.mobile.replace(/\D/g, '');
-      if (number.length === 10) number = '91' + number;
-      
-      const message = messageTemplate(friend.name);
-      const whatsappUrl = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
-      
-      window.open(whatsappUrl, '_blank');
-      openedCount++;
-    });
-    
-    alert(`📢 "${product.name}" added for voting!\n\n📱 WhatsApp opened for ${openedCount} friend(s).\n\n👉 Click "Send" on each WhatsApp tab!`);
-  };
+  const handleAddForVote = async () => {
+  const newPost = addVotingPost(product);
+  const friendsList = JSON.parse(localStorage.getItem('trendcart_friends') || '[]');
+  
+  if (friendsList.length === 0) {
+    alert('❌ No friends added. Go to Friends page first!');
+    return;
+  }
+  
+  const votingLink = `${window.location.origin}/vote`;
+  
+  // Create a single WhatsApp message
+  let allFriendsMessage = "👗 *TrendCart Voting Alert!*\n\n";
+  allFriendsMessage += `*${product.name}* has been added for voting!\n\n`;
+  allFriendsMessage += `💰 Price: ${formatINR(product.price)}\n\n`;
+  allFriendsMessage += `🔗 Vote here: ${votingLink}\n\n`;
+  allFriendsMessage += `Vote options: 👍 Like | 👎 Dislike | 🌟 Excellent\n\n`;
+  allFriendsMessage += `- TrendCart 🌸\n\n`;
+  allFriendsMessage += `*Friends to vote:*\n`;
+  
+  friendsList.forEach(friend => {
+    allFriendsMessage += `📱 ${friend.name} (${friend.mobile})\n`;
+  });
+  
+  // Create WhatsApp group link? No, better to create a shareable text
+  const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(allFriendsMessage)}`;
+  
+  // Open WhatsApp with the message (user will select whom to send)
+  window.open(whatsappUrl, '_blank');
+  
+  alert(`📢 "${product.name}" added for voting!\n\n📱 WhatsApp opened with message.\n\n👉 You need to:\n1. Select your friends from WhatsApp contacts\n2. Click Send to notify them!`);
+};
 
   // Button styles
   const btnPrimaryStyle = {
