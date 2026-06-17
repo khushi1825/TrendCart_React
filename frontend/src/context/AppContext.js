@@ -69,6 +69,7 @@ export const AppProvider = ({ children }) => {
   const [wishlist, setWishlist] = useState([]);
   const [friends, setFriends] = useState([]);
   const [votingPosts, setVotingPosts] = useState([]);
+  const [orders, setOrders] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 
   // Load user-specific data
@@ -82,11 +83,14 @@ export const AppProvider = ({ children }) => {
       setFriends(savedFriends ? JSON.parse(savedFriends) : []);
       const savedPosts = localStorage.getItem(`trendcart_votingPosts_${user.id}`);
       setVotingPosts(savedPosts ? JSON.parse(savedPosts) : []);
+      const savedOrders = localStorage.getItem(`trendcart_orders_${user.id}`);
+setOrders(savedOrders ? JSON.parse(savedOrders) : []);
     } else {
       setCart([]);
       setWishlist([]);
       setFriends([]);
       setVotingPosts([]);
+      setOrders([]);
     }
   }, [user]);
 
@@ -103,6 +107,14 @@ export const AppProvider = ({ children }) => {
   useEffect(() => {
     if (user) localStorage.setItem(`trendcart_votingPosts_${user.id}`, JSON.stringify(votingPosts));
   }, [votingPosts, user]);
+
+  useEffect(() => {
+  if (user)
+    localStorage.setItem(
+      `trendcart_orders_${user.id}`,
+      JSON.stringify(orders)
+    );
+}, [orders, user]);
 
   // Cart functions
   const addToCart = (product) => {
@@ -200,6 +212,23 @@ export const AppProvider = ({ children }) => {
     return counts;
   };
 
+  const placeOrder = () => {
+  if (cart.length === 0) return;
+
+  const newOrder = {
+    id: uuidv4(),
+    items: cart,
+    total: cart.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0
+    ),
+    orderedAt: new Date().toLocaleString()
+  };
+
+  setOrders(prev => [newOrder, ...prev]);
+  setCart([]);
+};
+
   return (
     <AppContext.Provider value={{
       products,
@@ -222,6 +251,8 @@ export const AppProvider = ({ children }) => {
       getFriendVoteStatus,
       getPendingVotesForFriend,
       getVoteCounts,
+      orders,
+      placeOrder,
     }}>
       {children}
     </AppContext.Provider>

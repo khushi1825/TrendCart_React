@@ -3,7 +3,12 @@ import { useAppContext } from '../context/AppContext';
 import { formatINR } from '../utils/currency';
 
 const Cart = () => {
-  const { cart, removeFromCart, updateQuantity } = useAppContext();
+  const {
+  cart,
+  removeFromCart,
+  updateQuantity,
+  placeOrder
+} = useAppContext();
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   if (cart.length === 0) {
@@ -37,7 +42,16 @@ const Cart = () => {
         ))}
       </ul>
       <h3>Total: {formatINR(total)}</h3>
-      <button className="btn btn-primary" style={{ marginTop: '1rem' }}>Checkout</button>
+      <button
+  className="btn btn-primary"
+  style={{ marginTop: '1rem' }}
+  onClick={() => {
+    placeOrder();
+    alert('✅ Order placed successfully!');
+  }}
+>
+  Place Order
+</button>
     </div>
   );
 };
