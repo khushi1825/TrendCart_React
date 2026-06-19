@@ -47,7 +47,6 @@ Unlike traditional e-commerce platforms, TrendCart introduces a social shopping 
 * Express.js
 * Nodemailer (EmailJS integration)
 
-
 ### Database
 
 * MongoDB
@@ -58,29 +57,6 @@ Unlike traditional e-commerce platforms, TrendCart introduces a social shopping 
 * Render
 * Vercel
 
----
-
-## 📸 Screenshots
-
-### Home Page
-
-![Home Page](./screenshots/home.png)
-
-### Product Details
-
-![Product Details](./screenshots/product.png)
-
-### Wishlist
-
-![Wishlist](./screenshots/wishlist.png)
-
-### Vote-Before-You-Buy
-
-![Voting System](./screenshots/vote.png)
-
-### Cart
-
-![Cart](./screenshots/cart.png)
 
 ---
 
@@ -104,15 +80,12 @@ src/
 ├── components/
 ├── pages/
 ├── context/
-├── assets/
 └── utils/
 Backend
 ```bash
 server/
 ├── routes/
 ├── models/
-├── controllers/
-├── middleware/
 └── config/
 ````
 
@@ -146,6 +119,10 @@ Create a `.env` file:
 ```env
 MONGODB_URI=your_mongodb_uri
 PORT=5000
+EMAILJS_SERVICE_ID=YOUR SERVICE ID
+EMAILJS_TEMPLATE_ID=YOUR TEMPALTE ID
+EMAILJS_PUBLIC_KEY=YOUR KEY
+JWT_SECRET=YOUR KEY
 ```
 
 ### Run Project
@@ -187,7 +164,7 @@ node server.js
 
 ## 👩‍💻 Author
 
-**Khushi Thakur**
+**Khushi**
 
 Computer Science Engineering Student
 
