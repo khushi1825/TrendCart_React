@@ -38,14 +38,14 @@ Unlike traditional e-commerce platforms, TrendCart introduces a social shopping 
 
 ### Frontend
 
-* React.js
-* CSS3
-* JavaScript (ES6+)
+* React 18
+* React Icons
 
 ### Backend
 
 * Node.js
 * Express.js
+* Nodemailer (EmailJS integration)
 
 ### Database
 
@@ -54,7 +54,9 @@ Unlike traditional e-commerce platforms, TrendCart introduces a social shopping 
 ### Tools
 
 * Git & GitHub
-* Postman
+* Render
+* Vercel
+
 
 ---
 
