@@ -1,78 +1,169 @@
-<div align="center">
-  
-  <img src="https://raw.githubusercontent.com/your-username/trendcart/main/frontend/public/logo.png" alt="TrendCart Logo" width="120" />
-  
-  # 👗 TRENDCART · women
-  
-  **Conscious clothing for the modern woman**
-  
-  [![React](https://img.shields.io/badge/React-18.2.0-61DAFB?logo=react&logoColor=white)](https://reactjs.org/)
-  [![Node.js](https://img.shields.io/badge/Node.js-18.x-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
-  [![Express](https://img.shields.io/badge/Express-4.18-000000?logo=express&logoColor=white)](https://expressjs.com/)
-  [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-  
-  [View Demo](https://trendcart.vercel.app) · [Report Bug](https://github.com/your-username/trendcart/issues) · [Request Feature](https://github.com/your-username/trendcart/issues)
-  
-</div>
+# 🛍️ TrendCart – Smart Social Shopping Platform
+
+TrendCart is a full-stack MERN e-commerce platform that enhances the online shopping experience by allowing users to gather feedback from friends before making purchase decisions.
+
+## 🚀 Unique Feature: Vote-Before-You-Buy
+
+Unlike traditional e-commerce platforms, TrendCart introduces a social shopping experience where users can:
+
+* Share products with friends via WhatsApp
+* Collect feedback before purchasing
+* View community opinions through voting
+* Make more informed buying decisions
 
 ---
 
-## ✨ About The Project
+## Features
 
-**TrendCart** is a modern e-commerce platform dedicated to women's clothing. It combines timeless fashion with sustainability, offering a seamless shopping experience with unique social features like **friend voting** on outfits.
+### User Features
 
-### 🎯 Key Features
+* User Authentication & Authorization
+* Product Browsing
+* Product Search
+* Shopping Cart Management
+* Wishlist Management
+* Order Placement & Tracking
+* Responsive UI
 
-| Feature | Description |
-|---------|-------------|
-| 🛍️ **Shop** | Browse 50+ women's dresses, jeans, and tops |
-| ❤️ **Wishlist** | Save your favorite items for later |
-| 🛒 **Cart** | Easy cart management with quantity updates |
-| 👥 **Friends** | Add friends via name and mobile number |
-| 🗳️ **Vote** | Share dresses for voting - friends can vote 👍👎🌟 |
-| 👤 **User Auth** | Secure login/signup system |
-| 💬 **WhatsApp Share** | Share voting links directly on WhatsApp |
-| 📱 **Responsive** | Works perfectly on all devices |
+### Social Shopping Features
 
----
-
-## 🖼️ Screenshots
-
-<div align="center">
-  
-  | Home Page | Shop Page |
-  |:---:|:---:|
-  | ![Home Page](https://via.placeholder.com/400x250?text=Home+Page) | ![Shop Page](https://via.placeholder.com/400x250?text=Shop+Page) |
-  
-  | Voting Page | My Account |
-  |:---:|:---:|
-  | ![Voting Page](https://via.placeholder.com/400x250?text=Voting+Page) | ![My Account](https://via.placeholder.com/400x250?text=My+Account) |
-
-</div>
+* Vote-Before-You-Buy System
+* WhatsApp Product Sharing
+* Friend-Based Product Feedback
+* Product Voting Interface
 
 ---
 
-## 🚀 Tech Stack
+## 🛠️ Tech Stack
 
-**Frontend:**
-- React 18
-- React Router DOM
-- Axios
-- React Icons
-- React Share
+### Frontend
 
-**Backend:**
-- Node.js
-- Express.js
-- Cors
-- Nodemailer (EmailJS integration)
+* React.js
+* CSS3
+* JavaScript (ES6+)
 
-**Tools & Services:**
-- Git & GitHub
-- Vercel (Frontend Deployment)
-- Render (Backend Deployment)
-- EmailJS (Contact form emails)
+### Backend
+
+* Node.js
+* Express.js
+
+### Database
+
+* MongoDB
+
+### Tools
+
+* Git & GitHub
+* Postman
 
 ---
 
-## 📁 Project Structure
+## 🧠 System Workflow
+
+1. User browses products.
+2. User selects a product.
+3. User shares the product via WhatsApp.
+4. Friends provide feedback through voting.
+5. User reviews opinions before purchasing.
+6. User proceeds with the final purchase decision.
+
+---
+
+## 📂 Project Structure
+
+Frontend
+
+````bash
+src/
+├── components/
+├── pages/
+├── context/
+└── utils/
+Backend
+```bash
+server/
+├── routes/
+├── models/
+└── config/
+````
+
+---
+
+## ⚙️ Installation
+
+### Clone Repository
+
+```bash
+git clone https://github.com/khushi1825/TrendCart_React.git
+```
+
+### Install Frontend Dependencies
+
+```bash
+npm install
+```
+
+### Install Backend Dependencies
+
+```bash
+cd server
+npm install
+```
+
+### Configure Environment Variables
+
+Create a `.env` file:
+
+```env
+MONGODB_URI=your_mongodb_uri
+PORT=5000
+EMAILJS_SERVICE_ID=YOUR SERVICE ID
+EMAILJS_TEMPLATE_ID=YOUR TEMPALTE ID
+EMAILJS_PUBLIC_KEY=YOUR KEY
+JWT_SECRET=YOUR KEY
+```
+
+### Run Project
+
+Frontend:
+
+```bash
+npm start
+```
+
+Backend:
+
+```bash
+node server.js
+```
+
+---
+
+## 🎯 Future Enhancements
+
+* Real-Time Notifications
+* Payment Gateway Integration
+* AI-Based Product Recommendations
+* Advanced Product Filtering
+* Analytics Dashboard
+
+---
+
+## 💡 Key Learning Outcomes
+
+* Full-Stack MERN Development
+* REST API Integration
+* MongoDB Database Design
+* State Management
+* Authentication & Authorization
+* Social Commerce Features
+
+---
+
+## 👩‍💻 Author
+
+**Khushi**
+
+Computer Science Engineering Student
+
+Passionate about Full-Stack Development, Problem Solving, and Building User-Centric Applications.
