@@ -45,7 +45,7 @@ Unlike traditional e-commerce platforms, TrendCart introduces a social shopping 
 
 * Node.js
 * Express.js
-* Express.js
+* Nodemailer (EmailJS integration)
 
 
 ### Database
@@ -55,7 +55,8 @@ Unlike traditional e-commerce platforms, TrendCart introduces a social shopping 
 ### Tools
 
 * Git & GitHub
-* Postman
+* Render
+* Vercel
 
 ---
 
@@ -152,13 +153,13 @@ PORT=5000
 Frontend:
 
 ```bash
-npm run dev
+npm start
 ```
 
 Backend:
 
 ```bash
-npm start
+node server.js
 ```
 
 ---
